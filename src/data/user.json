@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1",
+        "idNum": "154782321",
+        "name": "בוב דדו",
+        "email": "bobforyou@gmail.com",
+        "phoneNum": "0501234567",
+        "worksIds": ["45", "46", "47","48"],
+        "isManager": true,
+        "managerID": 456,
+        "contractorRank": null,
+        "role": "מנהל שיווק"
+    },
+    {
+        "id": "2",
+        "idNum": "7854874598",
+        "name": "ליאור בוחבוט",
+        "email": "lilislove@gmail.com",
+        "phoneNum": "0529655454",
+        "worksIds": ["45", "46", "47"],
+        "isManager": false,
+        "managerID": 0,
+        "contractorRank": 5,
+        "role": "קבלן"
+    },
+    {
+        "id": "3",
+        "idNum": "5789621235",
+        "name": "חיים ממוקה",
+        "email": "mamokallaround@gmail.com",
+        "phoneNum": "0539985574",
+        "worksIds": ["48"],
+        "isManager": false,
+        "managerID": 0,
+        "contractorRank": 5,
+        "role": "קבלן"
+    }
+]

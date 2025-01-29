@@ -1,0 +1,57 @@
+.header-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    background-color: black;
+    margin: 0 0 10px 0;
+    padding: 10px;
+    border-radius: 0 0 20px 20px;
+    align-items: center;
+
+    .app-name {
+        font-size: 30px;
+        color: bisque;
+        font-family: caveat;
+        margin: 0;
+    }
+
+    .header-nav-bar {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+        align-content: center;
+
+        .link-item {
+            margin: 0px 20px;
+        }
+    }
+
+    .active-link {
+        color: rgb(189, 177, 6);
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .user-info {
+        display: flex; // Use flexbox for user info
+        align-items: center; // Vertically align items
+        gap: 10px; // Space between username and button
+        color: white;
+        margin-right: 20px; // Add right margin to user info
+
+
+        .logout-button {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+            &:hover {
+                background-color: white;
+                color: black;
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.dashboard-main-container {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin: 0 10px;
+
+    * {
+        font-family: 'rubik';
+    }
+
+    .dashboard-select-container {
+        align-self: center;
+        justify-self: center;
+        margin: 10px 0;
+
+        label {
+            font-weight: 600;
+        }
+    }
+
+    .dashboard-filter-container {
+        margin: 12px 0px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        .col-input {
+            display: flex;
+            background: rgb(158 107 64);
+            flex-direction: column;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+    }
+
+    .dashboard-graph-container {
+        width: 90vw;
+        height: 80vh;
+        min-height: 300px;
+
+
+    }
+
+}

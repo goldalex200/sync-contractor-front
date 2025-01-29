@@ -1,0 +1,119 @@
+
+[{
+    "id": "45",
+    "workNumber": "213",
+    "classification": 5,
+    "startDate": 1728776401469,
+    "dueEndDate": 1729989777950,
+    "endDate": 0,
+    "status":"בתהליך ביצוע",
+    "directorId": "1",
+    "contractorId": "2",
+    "facilityNum": 45,
+    "locationName": "משאבות משניות 2",
+    "sections": [
+        {
+            "id":"105",
+            "section": 1,
+            "description": "שקעים",
+            "contractAmount": 100,
+            "actualAmount": 95,
+            "unitCost": 30,
+            "status": "בעבודה"
+        },
+        {
+            "id":"104",
+            "section": 2,
+            "description":" גבס קירות",
+            "contractAmount": 500,
+            "actualAmount": 20,
+            "unitCost": 150,
+            "status": "הסתיים"
+        },
+        {
+            "id":"103",
+            "section": 3,
+            "description": "צביעת קירות",
+            "contractAmount": 20,
+            "actualAmount": 20,
+            "unitCost": 100,
+            "status": "בבקרת איכות"
+        },
+        {
+            "id":"102",
+            "section": 4,
+            "description": "נקיון כללי",
+            "contractAmount": 2,
+            "actualAmount": 2,
+            "unitCost": 300,
+            "status": "ממתין"
+        }
+    ]
+},
+{
+    "id": "46",
+    "workNumber": "214",
+    "classification": 5,
+    "startDate": 1728776401469,
+    "dueEndDate": 1729989777950,
+    "endDate": 0,
+    "status":"בתהליך ביצוע",
+    "directorId": "1",
+    "contractorId": "2",
+    "facilityNum": 45,
+    "locationName": "משאבות משניות 2",
+    "sections": [{
+        "id":"101",
+        "section": 1,
+        "description": "שקעים",
+        "contractAmount": 100,
+        "actualAmount": 95,
+        "unitCost": 30,
+        "status": "בעבודה"
+        }]
+    },
+    {
+        "id": "47",
+        "workNumber": "215",
+        "classification": 5,
+        "startDate": 1728776401469,
+        "dueEndDate": 1729989777950,
+        "endDate": 1729076401469,
+        "status":"הסתיים",
+        "directorId": "1",
+        "contractorId": "2",
+    "facilityNum": 19,
+    "locationName": "בנין הדואר",
+    "sections": [{
+        "id":"106",
+        "section": 1,
+        "description": "שקעים",
+        "contractAmount": 100,
+        "actualAmount": 95,
+        "unitCost": 30,
+        "status": "בעבודה"
+        }]
+    },
+    {
+        "id": "48",
+        "workNumber": "216",
+        "classification": 5,
+        "startDate": 1728776401469,
+        "dueEndDate": 1729989777950,
+        "endDate": 0,
+        "status":"בתהליך ביצוע",
+        "directorId": "1",
+        "contractorId": "3",
+        "facilityNum": 80,
+        "locationName": "משרדים 12",
+        "sections": [{
+            "id":"107",
+            "section": 1,
+            "description": "שקעים",
+            "contractAmount": 100,
+            "actualAmount": 95,
+            "unitCost": 30,
+            "status": "בעבודה"
+            }]
+        }
+    ]

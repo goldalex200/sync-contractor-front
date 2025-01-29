@@ -1,0 +1,49 @@
+.permissions-main-container{
+    display: grid;
+    grid-template-rows: auto;
+    column-gap: 5px;
+    row-gap: 20px;
+
+
+    .permissions-headers-container{
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+        margin: 0 0 20px 0;
+        background-color: rgb(255, 230, 200);
+        column-gap: 5px;
+        row-gap: 30px;
+        .permissions-table-title{
+            align-self: center;
+        }
+    }
+
+
+    .permissions-row-container{
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+        .permissions-info-container{
+            grid-column: 0;
+            display: flex;
+            flex-direction: column;
+            .permissions-sub-info-container{
+                background-color: rgb(135, 181, 172);
+                display: flex;
+                flex-direction: row;
+            }
+        }
+        .permissions-input-container{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            background-color: rgb(135, 181, 172);
+            .permissions-input-item{
+                
+                width: 20px;
+                height: 20px;
+                align-self: center;
+                justify-self: center;
+            }
+        }
+    }
+
+
+}

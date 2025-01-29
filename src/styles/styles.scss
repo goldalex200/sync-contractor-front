@@ -1,0 +1,15 @@
+// Basics
+@import "basics/typography.scss";
+@import "basics/base.scss";
+@import "basics/layouts.scss";
+
+// Components
+@import "cmps/header.scss";
+@import "cmps/workItem.scss";
+@import "cmps/newWorkModal.scss";
+
+//Pages
+@import "pages/managementTable.scss";
+@import "pages/login.scss";
+@import "pages/dashboard.scss";
+@import "pages/permissions.scss";

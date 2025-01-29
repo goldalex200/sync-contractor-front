@@ -1,0 +1,14 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    margin: 0;
+}
+
+.table-main-container{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}

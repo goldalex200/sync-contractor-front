@@ -1,0 +1,31 @@
+// Login.scss
+// ... other styles
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+  //border: 1px solid #ccc;
+  //border-radius: 4px;
+  overflow: hidden;
+  position: relative; // Needed for absolute positioning of the icon
+}
+
+.login-input {
+  padding: 10px;
+  padding-inline-start: 35px; /* Add left padding for the icon */
+  border: none;
+  flex-grow: 1;
+  font-size: 16px;
+  color: black;
+  outline: none;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  left: 10px; /* Position on the left */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+  font-size: 1.2rem;
+}

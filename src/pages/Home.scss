@@ -1,0 +1,140 @@
+// Home.scss
+// Home.scss
+//@import '../styles/_base.scss'; // Import base styles
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  padding: 20px;
+  background: transparent;
+
+  .hero-section {
+    margin-bottom: 40px;
+    color: white;
+
+    h1 {
+      font-size: 3em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+  }
+
+  .auth-links {
+    display: flex;
+    gap: 20px;
+
+    .auth-link {
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 9px; // Consistent border-radius
+      border: 2px double rgb(3, 105, 22); // Simplified border
+      color: #342501;
+      background-color: rgba(10, 132, 93, 0.445); // Use background-color
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(10, 132, 93, 0.813);
+      }
+    }
+  }
+  .hero-section {
+    animation: fadeIn 1s ease-in-out; // Add a fade-in animation
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .auth-link {
+    transition: transform 0.9s ease; // Add a transform transition
+    &:hover {
+      transform: scale(1.05); // Scale up on hover
+    }
+  }
+}
+//
+//.home-container {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//  min-height: 80vh; // Ensure it takes up at least most of the viewport height
+//  text-align: center;
+//  padding: 20px;
+//  background-color: #f0f0f0; // Light background
+//
+//  .hero-section {
+//    margin-bottom: 40px;
+//
+//    h1 {
+//      font-size: 3em;
+//      margin-bottom: 10px;
+//      color: #333; // Darker heading color
+//    }
+//
+//    h2 {
+//      font-size: 2em;
+//      margin-bottom: 20px;
+//      color: #555;
+//    }
+//
+//    p {
+//      font-size: 1.2em;
+//      color: #777;
+//    }
+//  }
+//
+//  .auth-links {
+//    display: flex;
+//    gap: 20px;
+//
+//    .auth-link {
+//      display: inline-block;
+//      padding: 10px 20px;
+//      border-radius: 5px;
+//      text-decoration: none;
+//      font-size: 1.2em;
+//      transition: background-color 0.3s ease, color 0.3s ease;
+//    }
+//
+//    .register-link {
+//      background-color: #4CAF50; // Green for register
+//      color: white;
+//
+//      &:hover {
+//        background-color: #45a049;
+//      }
+//    }
+//
+//    .login-link {
+//      background-color: #008CBA; // Blue for login
+//      color: white;
+//
+//      &:hover {
+//        background-color: #0077b3;
+//      }
+//    }
+//  }
+//}
