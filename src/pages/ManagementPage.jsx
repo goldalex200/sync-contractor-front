@@ -7,12 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import WorkNotifications from './WorkNotifications';
 
 import {
+  Grid,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl, // Import FormControl
+  InputLabel, // Import InputLabel
+  Select,      // Import Select
+  MenuItem      // Import MenuItem
 } from "@mui/material";
 
 export const ManagementPage = () => {
@@ -28,6 +33,10 @@ export const ManagementPage = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [workToDelete, setWorkToDelete] = useState(null);
 
+  const [workStatuses, setWorkStatuses] = useState([]);
+  const [workItemStatuses, setWorkItemStatuses] = useState([]);
+  const [workStatusFilter, setWorkStatusFilter] = useState("");
+  const [workItemStatusFilter, setWorkItemStatusFilter] = useState("");
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -49,6 +58,30 @@ export const ManagementPage = () => {
     }
     setIsLoading(false);
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchStatuses = async () => {
+      try {
+        const [workStatusesData, itemStatusesData] = await Promise.all([
+          DataService.getWorkStatuses(),
+          DataService.getWorkItemStatuses()
+        ]);
+
+        // הסינון לפי chosable:
+        const filteredWorkStatuses = workStatusesData.filter(status => status.chosable);
+        const filteredItemStatuses = itemStatusesData.filter(status => status.chosable);
+
+        setWorkStatuses(filteredWorkStatuses);
+        setWorkItemStatuses(filteredItemStatuses);
+
+      } catch (error) {
+        console.error('Error fetching statuses:', error);
+      }
+    };
+
+    fetchStatuses();
+  }, []); // useEffect עם מערך תלות ריק - פועל פעם אחת בעת טעינת הקומפוננטה
+
 
   const fetchWorks = async () => {
     try {
@@ -117,6 +150,29 @@ export const ManagementPage = () => {
     setWorkToDelete(null); // Clear work to delete if the dialog is closed without confirming
   };
 
+
+
+  const handleWorkStatusFilterChange = (event) => {
+    setWorkStatusFilter(event.target.value);
+  };
+
+  const handleWorkItemStatusFilterChange = (event) => {
+    setWorkItemStatusFilter(event.target.value);
+  };
+
+  const filteredActiveTableData = activeTableData.filter(work => {
+    const workStatusMatch = workStatusFilter === "" || work.status === workStatusFilter; //Filter for work status
+    const workItemStatusMatch = workItemStatusFilter === "" || work.items.some(item => item.status === workItemStatusFilter); //Filter for work item status
+    return workStatusMatch && workItemStatusMatch;
+  });
+
+  const filteredFinishedTableData = finishedTableData.filter(work => {
+    const workStatusMatch = workStatusFilter === "" || work.status === workStatusFilter; //Filter for work status
+    const workItemStatusMatch = workItemStatusFilter === "" || work.items.some(item => item.status === workItemStatusFilter); //Filter for work item status
+    return workStatusMatch && workItemStatusMatch;
+  });
+
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -125,18 +181,120 @@ export const ManagementPage = () => {
     return <div>Redirecting to login...</div>;
   }
 
+  // const selectStyle = {
+  //   minWidth: '170px',
+  //   height: '40px',
+  //   backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  //   '& .MuiOutlinedInput-notchedOutline': {
+  //     borderColor: 'rgba(0, 0, 0, 0.2)',
+  //   },
+  //   '&:hover .MuiOutlinedInput-notchedOutline': {
+  //     borderColor: 'rgba(0, 0, 0, 0.5)',
+  //   },
+  //   '& .MuiSelect-icon': {
+  //     color: 'rgba(0, 0, 0, 0.5)'
+  //   }
+  // };
+  //
+  // const labelStyle = {
+  //   color: 'rgba(0, 0, 0, 0.5)'
+  // }
+  const selectStyle = {
+    minWidth: '170px',
+    height: '40px',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    '& .MuiOutlinedInputRoot': {
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(0, 0, 0, 0.2)',
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(0, 0, 0, 0.5)',
+      },
+    },
+    '& .MuiSelectIcon': {
+      color: 'rgba(0, 0, 0, 0.5)'
+    }
+  };
+
+  const labelStyle = {
+    color: 'rgba(0, 0, 0, 0.5)'
+  };
+
+
+
   return (
       <main className="main-container contractor-main-container">
         <WorkNotifications works={activeTableData} userRole={user.role} />
         <PersonalDetails user={user} />
         {/*<button className="add-work-btn" onClick={() => setIsModalOpen(true)}>הוסף עבודה חדשה +</button>*/}
-        {!isHidden && (
-            <button className="add-work-btn" onClick={() => setIsModalOpen(true)}>
-              הוסף עבודה חדשה +
-            </button>
-        )}
-        <WorkTable user={user} isManager={user.role === 'MANAGER'} data={activeTableData} isDone={false} onEdit={handleEditWork}  onDelete={handleDeleteWork}/>
-        <WorkTable user={user} isManager={user.role === 'MANAGER'} data={finishedTableData} isDone={true} onEdit={handleEditWork} onDelete={handleDeleteWork}/>
+        {/*{!isHidden && (*/}
+        {/*    <button className="add-work-btn" onClick={() => setIsModalOpen(true)}>*/}
+        {/*      הוסף עבודה חדשה +*/}
+        {/*    </button>*/}
+        {/*)}*/}
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}> {/* Container for button and dropdowns */}
+          {!isHidden && (
+              <button className="add-work-btn" onClick={() => setIsModalOpen(true)}>
+                הוסף עבודה חדשה +
+              </button>
+          )}
+
+
+          <FormControl>
+            <InputLabel id="work-status-label">סטטוס עבודה</InputLabel>
+            <Select
+                labelId="work-status-label"
+                id="work-status"
+                value={workStatusFilter}
+                label="סטטוס עבודה"
+                onChange={handleWorkStatusFilterChange}
+                // style={{ minWidth: '170px' }}
+                style={selectStyle}
+            >
+              <MenuItem value="">הכל</MenuItem> {/* אפשרות "הכל" */}
+              {workStatuses.map((status) => (
+                  <MenuItem key={status.code} value={status.code}> {/* מפתח ייחודי וערך לפי code */}
+                    {status.label} {/* התצוגה לפי label */}
+                  </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl>
+            <InputLabel id="work-item-status-label">סטטוס מסימה</InputLabel>
+            <Select
+                labelId="work-item-status-label"
+                id="work-item-status"
+                value={workItemStatusFilter}
+                label="סטטוס מסימה"
+                onChange={handleWorkItemStatusFilterChange}
+                // style={{ minWidth: '170px' }}
+                style={selectStyle}
+            >
+              <MenuItem value="">הכל</MenuItem> {/* אפשרות "הכל" */}
+              {workItemStatuses.map((status) => (
+                  <MenuItem key={status.code} value={status.code}> {/* מפתח ייחודי וערך לפי code */}
+                    {status.label} {/* התצוגה לפי label */}
+                  </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+
+        <Grid container direction="column" spacing={0}> {/* Or adjust spacing */}
+          <Grid item>
+        <WorkTable user={user} isManager={user.role === 'MANAGER'} data={filteredActiveTableData}  isDone={false} onEdit={handleEditWork}  onDelete={handleDeleteWork}/>
+        {/*<WorkTable user={user} isManager={user.role === 'MANAGER'} data={activeTableData} isDone={false} onEdit={handleEditWork}  onDelete={handleDeleteWork}/>*/}
+          </Grid>
+          <Grid item> {/* Empty Grid item for spacing */}
+            <div style={{ height: '10px' }}></div> {/* Add some height here */}
+          </Grid>
+          <Grid item>
+        <WorkTable user={user} isManager={user.role === 'MANAGER'} data={filteredFinishedTableData} isDone={true} onEdit={handleEditWork} onDelete={handleDeleteWork}/>
+          </Grid>
+        </Grid>
+        {/*<WorkTable user={user} isManager={user.role === 'MANAGER'} data={finishedTableData} isDone={true} onEdit={handleEditWork} onDelete={handleDeleteWork}/>*/}
         <NewWorkModal isOpen={isModalOpen} closeModal={() => {setIsModalOpen(false); setWorkToEdit(null)}} onSubmit={handleSaveWork} initialWork={workToEdit} />
         <Dialog
             open={deleteDialogOpen}

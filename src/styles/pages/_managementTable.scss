@@ -3,7 +3,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     margin: 0px 5px;
-    width: 99%;
+    //width: 99%;
 
     .add-work-container {
         display: flex;
@@ -58,16 +58,16 @@
     }
 
     .data-table {
-        margin: 10px 0;
+        margin: 2px 0;
     }
 
 
 
-    .contractor-table {
-        align-items: right;
-        justify-content: right;
-
-    }
+    //.contractor-table {
+    //    align-items: right;
+    //    justify-content: right;
+    //
+    //}
 
     .table-main-header {
         align-self: flex-end;

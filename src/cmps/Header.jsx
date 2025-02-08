@@ -1,12 +1,12 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaDroplet } from 'react-icons/fa6';
-import { AuthContext } from '../pages/AuthContext.jsx';
-import React, { useContext } from 'react';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {FaDroplet} from 'react-icons/fa6';
+import {AuthContext} from '../pages/AuthContext.jsx';
+import React, {useContext} from 'react';
 
 export const Header = () => {
-    const { pathname } = useLocation();
+    const {pathname} = useLocation();
     const navigate = useNavigate();
-    const { user, isLoggedIn, logout } = useContext(AuthContext);
+    const {user, isLoggedIn, logout} = useContext(AuthContext);
     const isAuthorized = user && ['GENERAL_ENGINEER', 'SUPER_ADMIN'].includes(user.role);
 
     const getClassName = (linkName) => {
@@ -21,7 +21,7 @@ export const Header = () => {
 
     return (
         <header className="header-container">
-            <h1 className="app-name">Sync {<FaDroplet />} Contractor</h1>
+            <h1 className="app-name">Sync {<FaDroplet/>} Contractor</h1>
             <nav className="header-nav-bar">
                 {!isLoggedIn && (
                     <>
@@ -52,11 +52,45 @@ export const Header = () => {
                         {/*    דשבורד*/}
                         {/*</Link>*/}
                         {isAuthorized && (
-                            <Link className={`link-item ${getClassName('/dashboard')}`} to="sync-contractor/dashboard">
-                                דשבורד
-                            </Link>
+                            <>
+                                {/*<Link className={`link-item ${getClassName('/dashboard')}`}*/}
+                                {/*      to="sync-contractor/dashboard">*/}
+                                {/*    דשבורד*/}
+                                {/*</Link>*/}
+                                <Link className={`link-item ${getClassName('/cost-chart')}`}
+                                      to="sync-contractor/cost-chart">
+                                    עלויות
+                                </Link>
+
+                                <Link className={`link-item ${getClassName('/facility-chart')}`}
+                                      to="sync-contractor/facility-chart">
+                                    סטטוס תקלות לפי מתקן
+                                </Link>
+
+                                <Link className={`link-item ${getClassName('/time-chart')}`}
+                                      to="sync-contractor/time-chart">
+                                    לוחות זמנים
+                                </Link>
+
+                                <Link className={`link-item ${getClassName('/work-status-chart')}`}
+                                      to="sync-contractor/work-status-chart">
+                                    סטטוס עבודות
+                                </Link>
+
+                                <Link className={`link-item ${getClassName('/top-contractor-chart')}`}
+                                      to="sync-contractor/top-contractor-chart">
+                                    קבלנים מצטיינים
+                                </Link>
+
+                                <Link className={`link-item ${getClassName('/top-minus-contractor-chart')}`}
+                                      to="sync-contractor/top-minus-contractor-chart">
+                                    קבלנים בתחתית הדירוג
+                                </Link>
+                            </>
+
                         )}
-                        <Link className={`link-item ${getClassName('/managementTable')}`} to="sync-contractor/managementTable">
+                        <Link className={`link-item ${getClassName('/managementTable')}`}
+                              to="sync-contractor/managementTable">
                             ניהול עבודות
                         </Link>
                     </>

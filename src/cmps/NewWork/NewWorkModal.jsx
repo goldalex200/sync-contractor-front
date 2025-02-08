@@ -15,7 +15,8 @@ import {
     Paper,
     Select,
     TextField,
-    Typography
+    Typography,
+    Slider
 } from '@mui/material';
 import DataService from "../../services/dataService.js";
 import WorkComments from "../Management/WorkComments.jsx";
@@ -53,6 +54,7 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
         quality_score: null, // New field
         time_score: null,    // New field
         cost_score: null,    // New field
+        completion_percentage: 0,
         items: [{
             section: 1,
             description: '',
@@ -99,11 +101,13 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
             project: work.project,
             manager: work.manager,
             facility: work.facility,
+            location_name: work.location_name,
             classification: work.classification || 'FAULT',
             status: work.status || 'PENDING_APPROVAL',
             quality_score: work.quality_score, // New field
             time_score: work.time_score,    // New field
             cost_score: work.cost_score,    // New field
+            completion_percentage: work.completion_percentage,
             items: work.items.map(item => ({
                 ...item,
                 section: Number(item.section),
@@ -129,6 +133,7 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
     const watchedManager = watch('manager');
     const watchedFacility = watch('facility');
     const watchedClassification = watch('classification');
+    const watchedLocationName = watch('location_name');
     const watchedStatus = watch('status');
 
     useEffect(() => {
@@ -215,6 +220,21 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
         reset(defaultWork); // Clear the form when the modal closes
     };
 
+    const locationOptions = [
+        'קווי הולכה',
+        'בוצה משופעלת',
+        'שיקוע ראשוני',
+        'שיקוע חול',
+        'ת"ש בורגי + מגובים',
+        'ת"ש 74',
+        'מעכלים',
+        'קוגנרציה',
+        'אוגר גז',
+        'הסמכה',
+        'רחבת בוצה',
+        'אחר',
+    ];
+
     return (
         <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth="md">
             {/*<Dialog open={isOpen} onClose={handleCloseModal} fullWidth maxWidth="md">*/}
@@ -264,7 +284,7 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
                             <TextField
                                 {...register("project", {required: "project is required"})}
                                 // label="project"
-                                label="מספר פרויקט"
+                                label="פרויקט"
                                 fullWidth
                                 margin="normal"
                                 error={!!errors.project}
@@ -293,7 +313,7 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
                         </Grid>
                         <Grid item xs={4}>
                             <FormControl fullWidth margin="normal" error={!!errors.contractor}>
-                                <InputLabel>שם הקבלן</InputLabel>
+                                <InputLabel>קבלן</InputLabel>
                                 {/*<InputLabel>Contractor</InputLabel>*/}
                                 <Select
                                     value={watchedContractor || ''}
@@ -312,7 +332,7 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
                         <Grid item xs={4}>
                             <FormControl fullWidth margin="normal" error={!!errors.manager}>
                                 {/*<InputLabel>Manager</InputLabel>*/}
-                                <InputLabel>שם מנהל</InputLabel>
+                                <InputLabel>מנהל</InputLabel>
                                 <Select
                                     value={watchedManager || ''}
                                     {...register("manager", {required: "Manager is required"})}
@@ -417,18 +437,71 @@ const NewWorkModal = ({isOpen, closeModal, onSubmit, initialWork}) => {
                             </FormControl>
                         </Grid>
                         {/* Rest of your form fields... */}
+                        {/*<Grid item xs={12}>*/}
+                        {/*    <TextField*/}
+                        {/*        {...register("location_name", {required: "Location is required"})}*/}
+                        {/*        label="מיקום"*/}
+                        {/*        // label="Location"*/}
+                        {/*        fullWidth*/}
+                        {/*        margin="normal"*/}
+                        {/*        InputProps={{readOnly: isRestrictedRole}}*/}
+                        {/*        error={!!errors.location_name}*/}
+                        {/*        helperText={errors.location_name?.message}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12}>
-                            <TextField
-                                {...register("location_name", {required: "Location is required"})}
-                                label="מיקום הפרויקט"
-                                // label="Location"
-                                fullWidth
-                                margin="normal"
-                                InputProps={{readOnly: isRestrictedRole}}
-                                error={!!errors.location_name}
-                                helperText={errors.location_name?.message}
-                            />
+                            <FormControl fullWidth margin="normal" error={!!errors.location_name}>
+                                <InputLabel id="location-name-label">מיקום</InputLabel>
+                                <Select
+                                    {...register("location_name", { required: "Location is required" })}
+                                    labelId="location-name-label"
+                                    label="מיקום"
+                                    value={watchedLocationName || ''}
+                                    disabled={isRestrictedRole}
+                                    error={!!errors.location_name}
+                                >
+                                    <MenuItem value="" disabled>
+                                        בחר מיקום
+                                    </MenuItem>
+                                    {locationOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                {errors.location_name && (
+                                    <FormHelperText error>
+                                        {errors.location_name.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
                         </Grid>
+                        <Grid item xs={12}>
+                            <Typography gutterBottom>אחוזי השלמה</Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <Slider
+                                    value={watch('completion_percentage') || 0}
+                                    {...register('completion_percentage')}
+                                    onChange={(_, value) => setValue('completion_percentage', value)}
+                                    min={0}
+                                    max={100}
+                                    step={5}
+                                    disabled={isRestrictedRole}
+                                    // valueLabelDisplay="on"
+                                    marks
+                                    sx={{
+                                        '& .MuiSlider-valueLabelOpen': {
+                                            backgroundColor: 'primary.main',
+                                            color: 'white'
+                                        }
+                                    }}
+                                />
+                                <Typography variant="body2" sx={{ minWidth: 50, textAlign: 'center' }}>
+                                    {watch('completion_percentage') || 0}%
+                                </Typography>
+                            </Box>
+                        </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 {...register("remarks")}

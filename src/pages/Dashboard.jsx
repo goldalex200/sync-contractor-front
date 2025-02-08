@@ -8,9 +8,14 @@ import DataService from '../services/DataService';
 import {ContractorsChartWorst} from "../cmps/Dashboard/ContractorsChartWorst.jsx";
 
 export const Dashboard = () => {
+
+    const currentDate = new Date();
+    const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
+
+
     const [chart, setChart] = useState('costs');
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState(firstDayOfYear);
+    const [endDate, setEndDate] = useState(currentDate);
     const [contractorId, setContractorId] = useState(null);
     const [contractors, setContractors] = useState([]);
     const [facilityName, setFacilityName] = useState(null);
@@ -179,12 +184,6 @@ export const Dashboard = () => {
                 <div className="col-input">
                     <label>סיווג</label>
                     <select id="classification-select" onChange={(e) => setClassification(e.target.value)} value={classification || ''}>
-                        {/*<option value="">כל הסיווגים</option>*/}
-                        {/*{classifications.map((classification) => (*/}
-                        {/*    <option key={classification} value={classification}>*/}
-                        {/*        {classification}*/}
-                        {/*    </option>*/}
-                        {/*))}*/}
                         <option value="">כל הסיווגים</option>
                         {Object.entries(classifications).map(([key, value]) => (
                             <option key={key} value={key}>

@@ -52,8 +52,14 @@ class DataService {
         this.rolesURL = `${this.baseURL}/user-roles/`;
     }
 
-    async getWorks() {
-        return this.get(this.worksURL);
+    // async getWorks() {
+    //     return this.get(this.worksURL);
+    // }
+    async getWorks(filters = {}) {
+        const params = new URLSearchParams();
+        if (filters.workStatus) params.append('work_status', filters.workStatus);
+        if (filters.itemStatus) params.append('item_status', filters.itemStatus);
+        return this.get(`${this.worksURL}?${params.toString()}`);
     }
 
     async getWork(id) {

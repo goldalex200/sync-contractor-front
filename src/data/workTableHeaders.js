@@ -13,6 +13,8 @@ export const columns = [
     { selector: row => row.phone_number, name: 'טלפון  קבלן', sortable: true },
     { selector: row => row.location_name, name: 'מיקום', sortable: true },
     { selector: row => row.average_score, name: 'ציון קבלן', sortable: true },
+    { selector: row => row.completion_percentage, name: 'השלמה (%)', sortable: true },
+    { selector: row => row.days_in_work, name: 'משך העבודה', sortable: true },
 ];
 
 
